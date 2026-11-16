@@ -1,0 +1,3 @@
+{
+  "extends": "@THE-TRANSPORTER/config/tsconfig.base.json"
+}
