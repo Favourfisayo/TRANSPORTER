@@ -16,7 +16,7 @@ export default function Home() {
       <main className={urbanist.variable}>
         <div className="relative isolate min-h-[880px] overflow-hidden bg-hero-overlay text-white max-[600px]:min-h-svh">
           <Image
-            src="/assets/airport-hero.png"
+            src="/assets/airport-hero.jpg"
             alt=""
             fill
             priority

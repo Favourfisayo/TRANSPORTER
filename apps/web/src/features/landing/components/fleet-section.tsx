@@ -2,11 +2,11 @@ import Image from "next/image";
 import { RiGroupLine, RiSuitcase3Line } from "@remixicon/react";
 
 const vehicles = [
-  { name: "Sedan", image: "/assets/fleet-sedan.png", passengers: 2, bags: 3 },
-  { name: "SUV", image: "/assets/fleet-suv.png", passengers: 3, bags: 5 },
+  { name: "Sedan", image: "/assets/fleet-sedan.jpg", passengers: 2, bags: 3 },
+  { name: "SUV", image: "/assets/fleet-suv.jpg", passengers: 3, bags: 5 },
   {
     name: "Bus",
-    image: "/assets/fleet-bus.png",
+    image: "/assets/fleet-bus.jpg",
     description: "Toyota Hiace, Mercedes-Benz Sprinter or similar",
     passengers: 14,
     bags: 14,

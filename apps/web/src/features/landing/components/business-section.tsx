@@ -19,7 +19,7 @@ export function BusinessSection() {
         <div className="grid md:grid-cols-[47.04%_1fr]">
           <div className="relative min-h-[320px] md:h-[610px]">
             <Image
-              src="/assets/business-travel.png"
+              src="/assets/business-travel.jpg"
               alt=""
               fill
               sizes="(max-width: 767px) 100vw, 47vw"
