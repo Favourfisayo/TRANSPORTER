@@ -8,7 +8,7 @@ import {
 } from "@shadcn/react/message-scroller";
 import { Button } from "@THE-TRANSPORTER/ui/components/button";
 import { cn } from "@THE-TRANSPORTER/ui/lib/utils";
-import { ArrowDownIcon } from "lucide-react";
+import { RiArrowDownLine } from "@remixicon/react";
 import * as React from "react";
 
 function MessageScrollerProvider(
@@ -106,7 +106,7 @@ function MessageScrollerButton({
     >
       {children ?? (
         <>
-          <ArrowDownIcon />
+          <RiArrowDownLine aria-hidden="true" />
           <span className="sr-only">
             {direction === "end" ? "Scroll to end" : "Scroll to start"}
           </span>

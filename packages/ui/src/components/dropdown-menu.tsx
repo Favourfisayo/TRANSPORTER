@@ -2,7 +2,7 @@
 
 import { Menu as MenuPrimitive } from "@base-ui/react/menu";
 import { cn } from "@THE-TRANSPORTER/ui/lib/utils";
-import { ChevronRightIcon, CheckIcon } from "lucide-react";
+import { RiArrowRightSLine, RiCheckLine } from "@remixicon/react";
 import * as React from "react";
 
 function DropdownMenu({ ...props }: MenuPrimitive.Root.Props) {
@@ -115,7 +115,7 @@ function DropdownMenuSubTrigger({
       {...props}
     >
       {children}
-      <ChevronRightIcon className="cn-rtl-flip ml-auto" />
+      <RiArrowRightSLine className="cn-rtl-flip ml-auto" aria-hidden="true" />
     </MenuPrimitive.SubmenuTrigger>
   );
 }
@@ -169,7 +169,7 @@ function DropdownMenuCheckboxItem({
         data-slot="dropdown-menu-checkbox-item-indicator"
       >
         <MenuPrimitive.CheckboxItemIndicator>
-          <CheckIcon />
+          <RiCheckLine aria-hidden="true" />
         </MenuPrimitive.CheckboxItemIndicator>
       </span>
       {children}
@@ -204,7 +204,7 @@ function DropdownMenuRadioItem({
         data-slot="dropdown-menu-radio-item-indicator"
       >
         <MenuPrimitive.RadioItemIndicator>
-          <CheckIcon />
+          <RiCheckLine aria-hidden="true" />
         </MenuPrimitive.RadioItemIndicator>
       </span>
       {children}

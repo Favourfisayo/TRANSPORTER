@@ -1,0 +1,12 @@
+{
+  "paths": {
+    "components": "src/components",
+    "utils": "src/utils",
+    "styles": "src/styles/boardui"
+  },
+  "aliases": {
+    "components": "@THE-TRANSPORTER/ui/components",
+    "utils": "@THE-TRANSPORTER/ui/utils",
+    "styles": "@THE-TRANSPORTER/ui/styles/boardui"
+  }
+}

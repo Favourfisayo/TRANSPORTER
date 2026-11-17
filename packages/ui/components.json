@@ -10,7 +10,7 @@
     "cssVariables": true,
     "prefix": ""
   },
-  "iconLibrary": "lucide",
+  "iconLibrary": "remixicon",
   "aliases": {
     "components": "@THE-TRANSPORTER/ui/components",
     "utils": "@THE-TRANSPORTER/ui/lib/utils",

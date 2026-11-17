@@ -8,6 +8,7 @@ import { withPwa } from "./pwa.config";
 const nextConfig: NextConfig = {
   typedRoutes: true,
   reactCompiler: true,
+  allowedDevOrigins: ['192.168.0.159'],
 };
 
 export default withVarlock(withPwa(nextConfig));
