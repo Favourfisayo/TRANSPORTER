@@ -32,6 +32,17 @@ const TEXT_WEIGHTS = ["regular", "medium", "semibold", "bold"] as const;
 const TEXT_STYLE_SUFFIXES = TEXT_FAMILIES.flatMap((family) =>
   TEXT_WEIGHTS.map((weight) => `${family}-${weight}`),
 );
+TEXT_STYLE_SUFFIXES.push(
+  "dashboard-empty-title",
+  "dashboard-page-title",
+  "dashboard-greeting",
+  "dashboard-body",
+  "dashboard-card-title",
+  "dashboard-detail",
+  "dashboard-label",
+  "dashboard-route",
+  "dashboard-ride-title",
+);
 
 const twMerge = extendTailwindMerge({
   extend: {

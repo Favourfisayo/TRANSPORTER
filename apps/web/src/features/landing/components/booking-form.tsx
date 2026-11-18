@@ -2,12 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import type { CalendarDate, Time } from "@internationalized/date";
-import {
-  RiFlightLandLine,
-  RiFlightTakeoffLine,
-  RiMapPin2Line,
-  RiRepeatLine,
-} from "@remixicon/react";
+import { FigmaIcon } from "@/components/figma-icon";
 
 import { Button } from "@THE-TRANSPORTER/ui/components/base/buttons/button";
 import { DatePicker } from "@THE-TRANSPORTER/ui/components/base/date-picker/date-picker";
@@ -25,10 +20,14 @@ import { cx } from "@THE-TRANSPORTER/ui/utils/cx";
 import { validateBookingFields } from "../lib/booking-form";
 
 const modes = [
-  { value: "pickup", label: "Pickup", icon: RiFlightLandLine },
-  { value: "dropoff", label: "Drop-off", icon: RiFlightTakeoffLine },
-  { value: "roundtrip", label: "Round trip", icon: RiRepeatLine },
+  { value: "pickup", label: "Pickup", icon: "hero-pickup" },
+  { value: "dropoff", label: "Drop-off", icon: "hero-dropoff" },
+  { value: "roundtrip", label: "Round trip", icon: "hero-roundtrip" },
 ] as const;
+
+function LocationIcon({ className }: { className?: string }) {
+  return <FigmaIcon name="hero-location" className={className} />;
+}
 
 const fieldClass =
   "h-12 rounded-xl border-0 bg-background-tertiary-default px-3.5 shadow-none hover:bg-background-tertiary-default";
@@ -74,13 +73,13 @@ export function BookingForm() {
           }}
           className="grid w-full grid-cols-3 gap-1 rounded-2xl"
         >
-          {modes.map(({ value, label, icon: Icon }) => (
+          {modes.map(({ value, label, icon }) => (
             <SegmentedControlItem
               key={value}
               id={value}
               className="h-11 gap-2 rounded-xl px-1 text-body-2-medium motion-reduce:transition-none"
             >
-              <Icon className="size-4 shrink-0 max-[360px]:hidden" aria-hidden="true" />
+              <FigmaIcon name={icon} className="size-4 max-[360px]:hidden" />
               {label}
             </SegmentedControlItem>
           ))}
@@ -92,6 +91,7 @@ export function BookingForm() {
             defaultSelectedKey="mmia"
             className={labelClass}
             triggerClassName={fieldClass}
+            indicator={<FigmaIcon name="hero-chevron" className="text-text-secondary size-4" />}
             popoverClassName="font-landing [&_button]:font-landing"
             onSelectionChange={() => setUnavailable(false)}
           >
@@ -113,7 +113,7 @@ export function BookingForm() {
               setUnavailable(false);
             }}
             placeholder="e.g. Lekki Phase 1"
-            leadingIcon={RiMapPin2Line}
+            leadingIcon={LocationIcon}
             isInvalid={!!errors.location}
             errorMessage={errors.location}
             className={labelClass}
@@ -158,6 +158,8 @@ export function BookingForm() {
           <NumberField
             label="Passengers"
             layout="stepper"
+            decrementIcon={<FigmaIcon name="hero-minus" className="size-4" />}
+            incrementIcon={<FigmaIcon name="hero-plus" className="size-4" />}
             defaultValue={2}
             minValue={1}
             onChange={() => setUnavailable(false)}
@@ -165,6 +167,8 @@ export function BookingForm() {
           <NumberField
             label="Large bags"
             layout="stepper"
+            decrementIcon={<FigmaIcon name="hero-minus" className="size-4" />}
+            incrementIcon={<FigmaIcon name="hero-plus" className="size-4" />}
             defaultValue={2}
             minValue={0}
             onChange={() => setUnavailable(false)}

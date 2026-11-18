@@ -51,6 +51,8 @@ export interface NumberFieldProps extends Omit<AriaNumberFieldProps, "className"
   className?: string;
   fieldClassName?: string;
   layout?: "field" | "stepper";
+  decrementIcon?: ReactNode;
+  incrementIcon?: ReactNode;
 }
 
 const STEPPER = [
@@ -72,6 +74,8 @@ export function NumberField({
   className,
   fieldClassName,
   layout = "field",
+  decrementIcon,
+  incrementIcon,
   ...props
 }: NumberFieldProps) {
   const stepper = cx(STEPPER, size === "small" ? "size-5" : "size-6");
@@ -106,7 +110,7 @@ export function NumberField({
                 aria-label={`Fewer ${counterLabel}`}
                 className={cx(STEPPER, "size-9 rounded-full")}
               >
-                <RiSubtractLine aria-hidden className="size-4" />
+                {decrementIcon ?? <RiSubtractLine aria-hidden className="size-4" />}
               </AriaButton>
               <AriaInput className="text-body-medium text-text-primary w-7 border-0 bg-transparent p-0 text-center tabular-nums outline-none" />
               <AriaButton
@@ -114,7 +118,7 @@ export function NumberField({
                 aria-label={`More ${counterLabel}`}
                 className={cx(STEPPER, "size-9 rounded-full")}
               >
-                <RiAddLine aria-hidden className="size-4" />
+                {incrementIcon ?? <RiAddLine aria-hidden className="size-4" />}
               </AriaButton>
             </AriaGroup>
           ) : (

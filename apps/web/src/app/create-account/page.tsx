@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { AuthLayout } from "@/features/auth/components/auth-layout";
-import { AccountForm } from "@/features/auth/components/auth-forms";
+import { AccountForm } from "@/features/auth/components/forms/auth-forms";
 
 export default function CreateAccountPage() {
   return (

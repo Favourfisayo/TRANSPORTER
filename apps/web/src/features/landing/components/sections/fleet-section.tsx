@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { RiGroupLine, RiSuitcase3Line } from "@remixicon/react";
+import { FigmaIcon } from "@/components/figma-icon";
 
 const vehicles = [
   { name: "Sedan", image: "/assets/fleet-sedan.jpg", passengers: 2, bags: 3 },
@@ -43,11 +43,11 @@ export function FleetSection() {
               </div>
               <div className="border-brand-on/15 text-brand-on/75 mt-5 flex flex-wrap gap-4 border-t pt-4 text-[13px] leading-[19.5px]">
                 <span className="flex items-center gap-1.5">
-                  <RiGroupLine className="size-4" aria-hidden="true" /> Up to {vehicle.passengers}{" "}
+                  <FigmaIcon name="fleet-passengers" className="size-4" /> Up to {vehicle.passengers}{" "}
                   passengers
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <RiSuitcase3Line className="size-4" aria-hidden="true" /> {vehicle.bags} large
+                  <FigmaIcon name="fleet-bags" className="size-4" /> {vehicle.bags} large
                   bags
                 </span>
               </div>

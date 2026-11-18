@@ -92,6 +92,7 @@ export interface SelectProps<T extends object>
   /** Customise the trigger's rendered value (e.g. a compact flag + dial code).
    *  Falls back to the selected item's own content when omitted. */
   renderValue?: ReactNode | ((values: AriaSelectValueRenderProps<T>) => ReactNode);
+  indicator?: ReactNode;
   ref?: Ref<HTMLDivElement>;
 }
 
@@ -108,6 +109,7 @@ export function Select<T extends object>({
   children,
   items,
   renderValue,
+  indicator,
   ref,
   ...props
 }: SelectProps<T>) {
@@ -163,13 +165,13 @@ export function Select<T extends object>({
             >
               {renderValue as never /* RAC accepts node or render-prop */}
             </AriaSelectValue>
-            <ChevronDownSmall
+            {indicator ? <span className={cx("flex shrink-0 transition-transform duration-200 ease", isOpen && "rotate-180")}>{indicator}</span> : <ChevronDownSmall
               className={cx(
                 "shrink-0 text-text-secondary transition-transform duration-200 ease",
                 size === "sm" ? "size-3.5" : "size-4",
                 isOpen && "rotate-180",
               )}
-            />
+            />}
           </AriaButton>
           <AriaPopover
             ref={popoverRef}

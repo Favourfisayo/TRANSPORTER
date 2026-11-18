@@ -1,4 +1,4 @@
-import { RiBankCardLine, RiCarLine, RiShieldCheckLine, RiTicketLine } from "@remixicon/react";
+import { FigmaIcon } from "@/components/figma-icon";
 import { cx } from "@THE-TRANSPORTER/ui/utils/cx";
 
 const steps = [
@@ -6,27 +6,27 @@ const steps = [
     title: "Add your flight",
     description:
       "Enter your flight details-fill in the airline, terminal and schedule, we also crosscheck from our airline database.",
-    icon: RiTicketLine,
+    icon: "step-flight",
     background: "bg-step-neutral",
   },
   {
     title: "Choose your vehicle",
     description:
       "Sedan, SUV or bus, priced upfront for your passengers and luggage. No surprises at the parking lot.",
-    icon: RiCarLine,
+    icon: "step-vehicle",
     background: "bg-step-light",
   },
   {
     title: "Pay your way",
     description: "with a Card or via bank transfer.",
-    icon: RiBankCardLine,
+    icon: "step-pay",
     background: "bg-step-mid",
   },
   {
     title: "Meet your driver",
     description:
       "Your driver says your private phrase before you board. Then you’re on your way home.",
-    icon: RiShieldCheckLine,
+    icon: "step-driver",
     background: "bg-step-strong",
   },
 ];
@@ -51,10 +51,10 @@ export function BookingStepsSection() {
           </p>
         </div>
         <ol className="order-1 grid sm:grid-cols-2 lg:grid-cols-4">
-          {steps.map(({ title, description, icon: Icon, background }) => (
+          {steps.map(({ title, description, icon, background }) => (
             <li key={title} className={cx(background, "text-step-text min-h-70.25 p-7")}>
               <div className="bg-step-icon-surface text-brand-primary grid size-11 place-items-center rounded-2xl">
-                <Icon className="size-5" aria-hidden="true" />
+                <FigmaIcon name={icon} className="size-5" />
               </div>
               <h3 className="text-title-3-semibold mt-8">{title}</h3>
               <p className="text-body-regular text-step-muted mt-2 leading-relaxed text-pretty">

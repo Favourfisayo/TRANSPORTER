@@ -3,9 +3,11 @@
 import { RiCheckLine, RiComputerLine, RiMoonClearLine, RiSunLine } from "@remixicon/react";
 import { useTheme } from "next-themes";
 import { useSyncExternalStore } from "react";
+import type { ReactNode } from "react";
 import { Select, SelectItem } from "@THE-TRANSPORTER/ui/components/base/select/select";
 import { DirectionProvider } from "@THE-TRANSPORTER/ui/components/foundations/direction/direction";
 import { cx } from "@THE-TRANSPORTER/ui/utils/cx";
+import { FigmaIcon } from "@/components/figma-icon";
 
 const choices = [
   { id: "light", label: "Light", description: "A brighter view", icon: RiSunLine },
@@ -15,7 +17,7 @@ const choices = [
 
 const subscribe = () => () => {};
 
-export function ModeToggle({ className }: { className?: string }) {
+export function ModeToggle({ className, icon }: { className?: string; icon?: ReactNode }) {
   const { theme, setTheme } = useTheme();
   const mounted = useSyncExternalStore(subscribe, () => true, () => false);
 
@@ -27,12 +29,7 @@ export function ModeToggle({ className }: { className?: string }) {
         onSelectionChange={(key) => {
           if (key) setTheme(String(key));
         }}
-        renderValue={
-          <>
-            <RiSunLine className="size-5 dark:hidden" aria-hidden="true" />
-            <RiMoonClearLine className="hidden size-5 dark:block" aria-hidden="true" />
-          </>
-        }
+        renderValue={icon ?? <FigmaIcon name="landing-theme" className="size-[18px]" />}
         className="w-auto"
         triggerClassName={cx("border-brand-on/20 bg-hero-overlay/40 text-brand-on h-11 gap-1 rounded-full px-3 shadow-none backdrop-blur-md hover:bg-hero-overlay/70 hover:border-brand-on/40 [&_svg]:text-brand-on", className)}
         popoverClassName="w-[240px] rounded-2xl p-2"

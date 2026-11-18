@@ -1,4 +1,4 @@
-import { BookingForm } from "./booking-form";
+import { BookingForm } from "../booking-form";
 
 export function BookingSection() {
   return (

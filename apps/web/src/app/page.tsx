@@ -2,10 +2,10 @@ import Image from "next/image";
 import { Urbanist } from "next/font/google";
 
 import { Header } from "@/features/landing/components/header";
-import { BookingSection } from "@/features/landing/components/booking-section";
-import { FleetSection } from "@/features/landing/components/fleet-section";
-import { BookingStepsSection } from "@/features/landing/components/booking-steps-section";
-import { BusinessSection } from "@/features/landing/components/business-section";
+import { BookingSection } from "@/features/landing/components/sections/booking-section";
+import { FleetSection } from "@/features/landing/components/sections/fleet-section";
+import { BookingStepsSection } from "@/features/landing/components/sections/booking-steps-section";
+import { BusinessSection } from "@/features/landing/components/sections/business-section";
 import { Footer } from "@/features/landing/components/footer";
 
 const urbanist = Urbanist({ subsets: ["latin"], style: "italic", variable: "--font-urbanist" });

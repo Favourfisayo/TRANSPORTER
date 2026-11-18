@@ -1,7 +1,7 @@
 import Image from "next/image";
-import { RiBuildingLine, RiCheckLine } from "@remixicon/react";
+import { FigmaIcon } from "@/components/figma-icon";
 
-import { ComingSoonButton } from "./coming-soon-button";
+import { ComingSoonButton } from "../coming-soon-button";
 
 const benefits = [
   "Book for anyone on your team",
@@ -28,7 +28,7 @@ export function BusinessSection() {
           </div>
           <div className="flex flex-col items-start px-6 py-10 md:p-12">
             <p className="font-landing text-business-accent flex items-center gap-2 text-[11px] leading-[16.5px] tracking-[0.18em] uppercase">
-              <RiBuildingLine className="size-3.5" aria-hidden="true" /> For business
+              <FigmaIcon name="business" className="size-3.5" /> For business
             </p>
             <h2
               id="business-heading"
@@ -43,10 +43,7 @@ export function BusinessSection() {
             <ul className="text-brand-logo mt-10 grid gap-3 text-[15px] leading-[1.5] md:mt-[62px]">
               {benefits.map((benefit) => (
                 <li key={benefit} className="flex items-start gap-3">
-                  <RiCheckLine
-                    className="text-brand-primary mt-0.5 size-4 shrink-0"
-                    aria-hidden="true"
-                  />
+                  <FigmaIcon name="check" className="text-brand-primary mt-0.5 size-4" />
                   {benefit}
                 </li>
               ))}

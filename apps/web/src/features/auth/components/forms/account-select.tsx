@@ -2,12 +2,14 @@
 
 import { Select, SelectItem } from "@THE-TRANSPORTER/ui/components/base/select/select";
 import { cx } from "@THE-TRANSPORTER/ui/utils/cx";
+import { FigmaIcon } from "@/components/figma-icon";
 
 export function AccountSelect() {
   return (
     <Select
       aria-label="Account type"
       defaultSelectedKey="individual"
+      indicator={<FigmaIcon name="auth-chevron" className="size-4" />}
       className="w-full"
       triggerClassName="text-body-regular h-12 rounded-xl border-accent-500 bg-account-select-surface px-3.5 text-accent-600 shadow-none [&_svg]:text-accent-600"
       triggerOpenClassName="rounded-b-none border-account-select-selected bg-account-select-selected text-brand-on hover:bg-account-select-selected [&_svg]:text-brand-on"
