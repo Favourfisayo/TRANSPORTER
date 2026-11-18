@@ -19,6 +19,7 @@
   --landing-track: #ebeff5;
   --landing-selected: #fff;
   --landing-secondary: #5e697c;
+  --account-select-surface: #f6f8fb;
   --footer-dot: #010f2b;
   --footer-domain: #0a3896;
   --color-accent-500: #0b5cff;
@@ -84,6 +85,7 @@
   --landing-track: #182132;
   --landing-selected: #0b111c;
   --landing-secondary: #c3cbd8;
+  --account-select-surface: #121a2c;
   --footer-dot: #94baff;
   --footer-domain: #94baff;
   --background: oklch(0.145 0 0);
@@ -134,6 +136,8 @@
   --font-landing-accent: var(--font-urbanist), sans-serif;
   --font-brand: var(--font-geist-sans), sans-serif;
   --color-brand-primary: #0b5cff;
+  --color-account-select-surface: var(--account-select-surface);
+  --color-account-select-selected: #0a46b5;
   --color-brand-on: #fff;
   --color-brand-primary-deep: #073799;
   --color-brand-action-border: #1967de;

@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-import { ComingSoonButton } from "./coming-soon-button";
 import { ModeToggle } from "./mode-toggle";
 
 export function Header() {
@@ -15,12 +14,12 @@ export function Header() {
       </Link>
       <nav className="flex items-center gap-1" aria-label="Account">
         <ModeToggle />
-        <ComingSoonButton
-          feature="Log in"
-          className="font-brand h-10 rounded-full border-0 bg-transparent px-3.5 text-base font-medium text-white hover:bg-white/12 focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-white"
+        <Link
+          href="/login"
+          className="font-brand inline-flex h-10 items-center justify-center rounded-full border-0 bg-transparent px-3.5 text-base font-medium text-white hover:bg-white/12 focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-white"
         >
           Log in
-        </ComingSoonButton>
+        </Link>
       </nav>
     </header>
   );

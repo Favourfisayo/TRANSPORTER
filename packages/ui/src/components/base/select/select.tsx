@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useLayoutEffect, useRef, useState } from "react";
-import type { ReactNode, Ref } from "react";
+import type { KeyboardEventHandler, ReactNode, Ref } from "react";
 import {
   Button as AriaButton,
   ListBox as AriaListBox,
@@ -76,8 +76,13 @@ export interface SelectProps<T extends object>
   /** Trigger width. Defaults to hug content; the compact menu is at least as wide as the trigger. */
   className?: string;
   triggerClassName?: string;
+  /** Additional trigger styles while the menu is open. */
+  triggerOpenClassName?: string;
   /** Classes for the open popover (e.g. constrain its width). */
   popoverClassName?: string;
+  /** Distance from the trigger to the popover. */
+  popoverOffset?: number;
+  listBoxKeyDownCapture?: KeyboardEventHandler<HTMLDivElement>;
   /** `md` (default) or `sm` for compact/dense contexts (e.g. compact tables). */
   size?: SelectSize;
   /** The open menu's density: `compact` (default) or the roomier `comfortable`. */
@@ -94,7 +99,10 @@ export function Select<T extends object>({
   label,
   className,
   triggerClassName,
+  triggerOpenClassName,
   popoverClassName,
+  popoverOffset = 4,
+  listBoxKeyDownCapture,
   size = "md",
   variant = "compact",
   children,
@@ -144,6 +152,7 @@ export function Select<T extends object>({
                 ? "gap-1 px-[7px] py-1 text-body-2-medium"
                 : "gap-1.5 px-2.5 py-2 text-body-medium",
               triggerClassName,
+              isOpen && triggerOpenClassName,
             )}
           >
             <AriaSelectValue
@@ -165,7 +174,7 @@ export function Select<T extends object>({
           <AriaPopover
             ref={popoverRef}
             isNonModal
-            offset={4}
+            offset={popoverOffset}
             className={cx(
               MENU_POPOVER_SURFACE,
               "flex flex-col",
@@ -179,7 +188,7 @@ export function Select<T extends object>({
             )}
           >
             <SelectStyleContext.Provider value={{ size, variant }}>
-              <SelectList items={items}>{children}</SelectList>
+              <SelectList items={items} onKeyDownCapture={listBoxKeyDownCapture}>{children}</SelectList>
             </SelectStyleContext.Provider>
           </AriaPopover>
         </>
@@ -196,7 +205,7 @@ export function Select<T extends object>({
  * chosen year, not on its first). React Aria's own scroll on open does not
  * run for a pointer open here; it still keeps the keyboard's row in view.
  */
-function SelectList<T extends object>({ items, children }: { items?: Iterable<T>; children: ReactNode }) {
+function SelectList<T extends object>({ items, children, onKeyDownCapture }: { items?: Iterable<T>; children: ReactNode; onKeyDownCapture?: KeyboardEventHandler<HTMLDivElement> }) {
   const { size, variant } = useContext(SelectStyleContext);
   const fade = useScrollFade();
   const listRef = useRef<HTMLDivElement>(null);
@@ -209,7 +218,7 @@ function SelectList<T extends object>({ items, children }: { items?: Iterable<T>
     list.scrollTop = top - (list.clientHeight - selected.offsetHeight) / 2;
   }, []);
   return (
-    <div className="relative flex min-h-0 flex-col">
+    <div className="relative flex min-h-0 flex-col" onKeyDownCapture={onKeyDownCapture}>
       <AriaListBox
         ref={listRef}
         items={items}
