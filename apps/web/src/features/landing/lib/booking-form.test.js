@@ -17,3 +17,8 @@ describe("booking form validation", () => {
     ).toEqual({});
   });
 });
+
+
+test("rejects malformed date and time values", () => {
+  expect(validateBookingFields({ location: "Lekki", date: "2026-02-30", time: "25:00" })).toEqual({ date: "Choose a flight date.", time: "Choose a flight time." });
+});

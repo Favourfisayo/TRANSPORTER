@@ -13,7 +13,7 @@ const urbanist = Urbanist({ subsets: ["latin"], style: "italic", variable: "--fo
 export default function Home() {
   return (
     <>
-      <main className={urbanist.variable}>
+      <main className={urbanist.variable} data-landing-page>
         <div className="relative isolate min-h-[880px] overflow-hidden bg-hero-overlay text-white max-[600px]:min-h-svh">
           <Image
             src="/assets/airport-hero.jpg"

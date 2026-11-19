@@ -42,6 +42,9 @@ TEXT_STYLE_SUFFIXES.push(
   "dashboard-label",
   "dashboard-route",
   "dashboard-ride-title",
+  "dashboard-section-title",
+  "booking-title",
+  "booking-option",
 );
 
 const twMerge = extendTailwindMerge({

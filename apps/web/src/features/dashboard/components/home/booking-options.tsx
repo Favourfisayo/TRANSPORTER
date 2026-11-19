@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { unavailable } from "./home-trip-parts";
 import { DashboardIcon } from "../dashboard-icon";
 
@@ -17,13 +18,10 @@ export function BookingOptions() {
         Book a ride
       </h2>
       <div className="mt-3 grid gap-3 sm:grid-cols-3">
-        {rides.map(({ title, image, icon }) => (
-          <button
-            type="button"
-            key={title}
-            onClick={() => unavailable("Booking")}
-            className="group text-brand-on relative h-48 overflow-hidden rounded-[26px] text-start focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-border-focus-ring sm:h-[233.0625px]"
-          >
+        {rides.map(({ title, image, icon }) => {
+          const className = "group text-brand-on relative h-48 overflow-hidden rounded-[26px] text-start focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-border-focus-ring sm:h-[233.0625px]";
+          const content = (
+            <>
             <Image
               src={image}
               alt=""
@@ -41,8 +39,14 @@ export function BookingOptions() {
                 <DashboardIcon name="arrow-up" />
               </span>
             </span>
-          </button>
-        ))}
+            </>
+          );
+          return title === "Airport drop-offs" ? (
+            <Link key={title} href={{ pathname: "/dashboard/book/drop-off" }} className={className}>{content}</Link>
+          ) : (
+            <button key={title} type="button" onClick={() => unavailable("Booking")} className={className}>{content}</button>
+          );
+        })}
       </div>
     </section>
   );

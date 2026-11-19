@@ -27,4 +27,8 @@ History currently contains only an `initial commit`, so no established commit fo
 
 ## Configuration and Agent Notes
 
+Before every task, read the documentation in `docs/`, including its subdirectories.
+
+For every UI or frontend engineering task, check the AI skills available in the workspace and environment, select the skills relevant to the work, and invoke and follow them. Do this every time.
+
 Keep secrets out of Git; commit environment schemas and use ignored environment files or the deployment platform for values. Follow `apps/web/AGENTS.md` when working in the web app, including its instruction to consult the installed Next.js documentation. For library, framework, SDK, API, CLI, or cloud-service questions, resolve the library with Context7 and query its current documentation before answering.

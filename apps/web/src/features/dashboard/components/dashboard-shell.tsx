@@ -5,13 +5,13 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { DashboardSidebar } from "@THE-TRANSPORTER/ui/components/application/dashboard/dashboard-sidebar";
-import { Button } from "@THE-TRANSPORTER/ui/components/base/buttons/button";
+import { buttonStyles } from "@THE-TRANSPORTER/ui/components/base/buttons/button";
 import { cx } from "@THE-TRANSPORTER/ui/utils/cx";
 import { toast } from "sonner";
 import { ModeToggle } from "@/components/mode-toggle";
 import { DashboardIcon } from "./dashboard-icon";
 
-type Destination = "home" | "trips";
+type Destination = "home" | "trips" | "account";
 const nav = [
   { label: "Home", icon: "nav-home", activeIcon: "nav-home-active", key: "home", href: "/dashboard" },
   {
@@ -22,14 +22,14 @@ const nav = [
     href: "/dashboard/trips",
   },
   { label: "Rewards", icon: "nav-rewards" },
-  { label: "Account", icon: "nav-account" },
+  { label: "Account", icon: "nav-account", activeIcon: "nav-account-active", key: "account", href: "/dashboard/account" },
 ] as const;
 const mobileNav = [
   { label: "Home", icon: "mobile-home", key: "home", href: "/dashboard" },
   { label: "My trips", icon: "mobile-trips", key: "trips", href: "/dashboard/trips" },
-  { label: "Book a ride", icon: "mobile-add" },
+  { label: "Book a ride", icon: "mobile-add", href: "/dashboard/book/drop-off" },
   { label: "Wallet", icon: "mobile-wallet" },
-  { label: "Account", icon: "mobile-account" },
+  { label: "Account", icon: "mobile-account", key: "account", href: "/dashboard/account" },
 ] as const;
 const themeClass =
   "border-transparent bg-transparent text-text-secondary px-2 shadow-none backdrop-blur-none hover:bg-background-secondary-default [&_svg]:text-text-secondary";
@@ -148,14 +148,14 @@ export function DashboardShell({ active, children }: { active: Destination; chil
         collapsed={collapsed}
         onToggle={() => setCollapsed((value) => !value)}
         action={
-          <Button
+          <Link
             aria-label={collapsed ? "Book a ride" : undefined}
             title={collapsed ? "Book a ride" : undefined}
-            className="from-brand-primary to-brand-primary-deep text-brand-on h-11 rounded-full bg-linear-to-b hover:brightness-110"
-            onClick={() => unavailable("Booking")}
+            className={cx(buttonStyles.base, buttonStyles.size.medium, buttonStyles.variant.primary, "from-brand-primary to-brand-primary-deep text-brand-on h-11 rounded-full bg-linear-to-b hover:brightness-110")}
+            href={{ pathname: "/dashboard/book/drop-off" }}
           >
-            <span className="flex items-center gap-2"><DashboardIcon name="book" />{!collapsed && "Book a ride"}</span>
-          </Button>
+            <span className={buttonStyles.label.medium}><span className="flex items-center gap-2"><DashboardIcon name="book" />{!collapsed && "Book a ride"}</span></span>
+          </Link>
         }
       />
       <div className="min-w-0 flex-1 pb-28 lg:pb-16">
