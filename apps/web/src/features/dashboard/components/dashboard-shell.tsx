@@ -7,7 +7,7 @@ import Link from "next/link";
 import { DashboardSidebar } from "@THE-TRANSPORTER/ui/components/application/dashboard/dashboard-sidebar";
 import { buttonStyles } from "@THE-TRANSPORTER/ui/components/base/buttons/button";
 import { cx } from "@THE-TRANSPORTER/ui/utils/cx";
-import { toast } from "sonner";
+import { toast } from "@THE-TRANSPORTER/ui/components/base/toast/toast";
 import { ModeToggle } from "@/components/mode-toggle";
 import { DashboardIcon } from "./dashboard-icon";
 

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import styles from "./number-pop-in.module.css";
 
 export function NumberPopIn({ value, label = "Estimate", announce = true }: { value: number; label?: string; announce?: boolean }) {
   const formatted = value.toLocaleString("en-NG");
@@ -18,21 +17,21 @@ export function NumberPopIn({ value, label = "Estimate", announce = true }: { va
   return (
     <span aria-live={announce ? "polite" : undefined} aria-atomic={announce ? "true" : undefined}>
       <span className="sr-only">{label}: ₦{formatted}</span>
-      <span aria-hidden="true" key={formatted} className={`${styles["t-digit-group"]} ${styles["is-animating"]}`}>
+      <span aria-hidden="true" key={formatted} className="booking-number-digit-group booking-number-animating">
         {formatted.split("").map((character, index) => {
           if (index < same || !/\d/.test(character)) {
-            return <span key={index} className={styles["t-digit"]} data-same="">{character}</span>;
+            return <span key={index} className="booking-number-digit" data-same="">{character}</span>;
           }
           const fromEnd = formatted.length - 1 - index;
           const old = from[from.length - (formatted.length - index)];
           return (
-            <span key={index} className={styles["t-digit-slot"]} data-stagger={fromEnd === 1 ? "1" : fromEnd === 0 ? "2" : undefined}>
-              {old && /\d/.test(old) && <span className={styles["t-digit-old"]}>{old}</span>}
-              <span className={styles["t-digit"]}>{character}</span>
+            <span key={index} className="booking-number-digit-slot" data-stagger={fromEnd === 1 ? "1" : fromEnd === 0 ? "2" : undefined}>
+              {old && /\d/.test(old) && <span className="booking-number-digit-old">{old}</span>}
+              <span className="booking-number-digit">{character}</span>
             </span>
           );
         })}
-      </span>
+      </span>                                                                    
     </span>
   );
 }

@@ -14,7 +14,7 @@ const spring = {
 export function BookingProgress({ current }: { current: number }) {
   const reducedMotion = useReducedMotion();
   return (
-    <nav aria-label="Booking progress" className="max-w-[458px]">
+    <nav aria-label="Booking progress" className="max-w-114.5">
       <ol className="flex w-full items-center">
         {steps.map((label, index) => (
           <li

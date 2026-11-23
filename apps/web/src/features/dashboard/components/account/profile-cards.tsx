@@ -2,7 +2,7 @@
 
 import { useState, useSyncExternalStore } from "react";
 import { useTheme } from "next-themes";
-import { toast } from "sonner";
+import { toast } from "@THE-TRANSPORTER/ui/components/base/toast/toast";
 import { Button } from "@THE-TRANSPORTER/ui/components/base/buttons/button";
 import { Input } from "@THE-TRANSPORTER/ui/components/base/input/input";
 import { SegmentedControl, SegmentedControlItem } from "@THE-TRANSPORTER/ui/components/base/segmented-control/segmented-control";

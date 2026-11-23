@@ -1,6 +1,6 @@
 "use client";
 
-import { toast } from "sonner";
+import { toast } from "@THE-TRANSPORTER/ui/components/base/toast/toast";
 import { Button } from "@THE-TRANSPORTER/ui/components/base/buttons/button";
 import { Switch } from "@THE-TRANSPORTER/ui/components/base/switch/switch";
 import { cx } from "@THE-TRANSPORTER/ui/utils/cx";

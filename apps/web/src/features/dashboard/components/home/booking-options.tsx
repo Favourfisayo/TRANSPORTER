@@ -41,8 +41,8 @@ export function BookingOptions() {
             </span>
             </>
           );
-          return title === "Airport drop-offs" ? (
-            <Link key={title} href={{ pathname: "/dashboard/book/drop-off" }} className={className}>{content}</Link>
+          return title !== "Day trip" ? (
+            <Link key={title} href={{ pathname: title === "Airport pickups" ? "/dashboard/book/pick-up" : "/dashboard/book/drop-off" }} className={className}>{content}</Link>
           ) : (
             <button key={title} type="button" onClick={() => unavailable("Booking")} className={className}>{content}</button>
           );

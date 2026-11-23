@@ -108,7 +108,7 @@ export function TravellersStep({
 
   return (
     <form
-      id="dropoff-travellers-form"
+      id="booking-travellers-form"
       onSubmit={submit}
       noValidate
       hidden={hidden}

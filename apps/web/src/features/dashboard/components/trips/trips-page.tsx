@@ -6,7 +6,7 @@ import { SearchField } from "@THE-TRANSPORTER/ui/components/base/search-field/se
 import { Tab, TabList, TabPanel, Tabs } from "@THE-TRANSPORTER/ui/components/base/tabs/tabs";
 import { DirectionProvider } from "@THE-TRANSPORTER/ui/components/foundations/direction/direction";
 import { cx } from "@THE-TRANSPORTER/ui/utils/cx";
-import { toast } from "sonner";
+import { toast } from "@THE-TRANSPORTER/ui/components/base/toast/toast";
 import { filterTrips, tripCounts, trips, type Trip, type TripCategory } from "../../lib/trips";
 import { DashboardShell } from "../dashboard-shell";
 import { DashboardIcon, DashboardSearchIcon } from "../dashboard-icon";

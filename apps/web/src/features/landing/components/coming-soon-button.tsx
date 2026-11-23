@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@THE-TRANSPORTER/ui/components/button";
-import { toast } from "sonner";
+import { toast } from "@THE-TRANSPORTER/ui/components/base/toast/toast";
 import type { ReactNode } from "react";
 
 export function ComingSoonButton({

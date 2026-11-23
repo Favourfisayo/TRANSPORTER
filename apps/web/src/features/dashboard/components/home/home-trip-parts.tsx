@@ -1,7 +1,7 @@
 "use client";
 
 import { cx } from "@THE-TRANSPORTER/ui/utils/cx";
-import { toast } from "sonner";
+import { toast } from "@THE-TRANSPORTER/ui/components/base/toast/toast";
 import { DashboardIcon, type DashboardIconName } from "../dashboard-icon";
 
 export const cardClass =

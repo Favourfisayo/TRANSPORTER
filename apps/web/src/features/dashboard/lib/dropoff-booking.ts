@@ -61,3 +61,12 @@ export function formatFlightSummary(flight: string, date: string, time: string) 
   const formattedDate = date ? new Intl.DateTimeFormat("en-GB", { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" }).format(new Date(`${date}T00:00:00Z`)) : "";
   return [flight.trim().toUpperCase(), formattedDate, time.slice(0, 5)].filter(Boolean).join(" · ");
 }
+
+// The design's sample allowance is illustrative, not a live traffic estimate.
+export function getDemoPickupTime(date: string, time: string) {
+  if (!z.iso.date().safeParse(date).success || !z.iso.time().safeParse(time).success) return null;
+  const departure = new Date(`${date}T${time}Z`);
+  if (Number.isNaN(departure.getTime()) || departure.toISOString().slice(0, 10) !== date) return null;
+  const pickup = new Date(departure.getTime() - (3 * 60 + 70) * 60_000);
+  return { date: pickup.toISOString().slice(0, 10), time: pickup.toISOString().slice(11, 19) };
+}

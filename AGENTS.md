@@ -19,7 +19,7 @@ Run these commands from the repository root:
 
 Use TypeScript and follow the surrounding code: two-space indentation, double quotes, semicolons, PascalCase React components, and kebab-case component filenames such as `mode-toggle.tsx`. Put reusable primitives in `packages/ui` and import them through `@THE-TRANSPORTER/ui/components/...`. Use the existing Tailwind and shared style conventions.
 
-No project test runner, test naming convention, or coverage threshold is configured yet. For changes, run the relevant type and build checks and verify affected behavior locally; add focused tests when introducing a test setup or non-trivial behavior.
+Do not add or run unit tests for components or other project files. Use appropriate non-test verification for changes, respecting the user's current restriction on full builds and live/browser verification.
 
 ## Commits and Pull Requests
 
@@ -31,4 +31,8 @@ Before every task, read the documentation in `docs/`, including its subdirectori
 
 For every UI or frontend engineering task, check the AI skills available in the workspace and environment, select the skills relevant to the work, and invoke and follow them. Do this every time.
 
-Keep secrets out of Git; commit environment schemas and use ignored environment files or the deployment platform for values. Follow `apps/web/AGENTS.md` when working in the web app, including its instruction to consult the installed Next.js documentation. For library, framework, SDK, API, CLI, or cloud-service questions, resolve the library with Context7 and query its current documentation before answering.
+Use BoardUI's shared notification and toast components for all application toasts and notifications. Import toast and Toaster from `@THE-TRANSPORTER/ui/components/base/toast/toast` rather than adding another toast library.
+
+Keep secrets out of Git; commit environment schemas and use ignored environment files or the deployment platform for values. Follow `apps/web/AGENTS.md` when working in the web app, including its instruction to consult the installed Next.js documentation.
+
+Before implementing or answering questions about a library, framework, SDK, API, CLI, or cloud service, use Context7 to resolve the relevant library and query its current documentation. This includes React and Tailwind CSS, among others, even for familiar APIs. Check current best practices and deprecations, and use documentation appropriate to the version installed in this project so implementations do not rely on stale or deprecated features. Consult the latest documentation as well when relevant; do not upgrade dependencies without a reason and authorization. Prefer Context7 over web search for library documentation.
