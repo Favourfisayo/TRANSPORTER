@@ -19,24 +19,24 @@ export const trips: Trip[] = [
     category: "upcoming",
     reference: "TR-1001",
     title: "Airport pickup",
-    date: "Thu 19 Nov · 17:50",
+    date: "Thu 19 Nov · 14:05",
     month: "November 2026",
-    origin: "International",
-    destination: "Lekki Phase 1",
-    flight: "BA 75",
+    origin: "MMIA International Terminal",
+    destination: "Maryland",
+    flight: "EK 783",
     vehicle: "SUV",
-    fare: "₦75,000",
-    status: "Driver assigned",
+    fare: "₦56,000",
+    status: "Confirmed",
   },
   {
     category: "upcoming",
     reference: "TR-1002",
     title: "Airport drop-off",
-    date: "Thu 26 Nov · 12:30",
+    date: "Thu 19 Nov · 11:10",
     month: "November 2026",
-    origin: "Ikoyi",
-    destination: "International",
-    flight: "EK 784",
+    origin: "Victoria Island",
+    destination: "MMIA International Terminal",
+    flight: "EA 1406",
     vehicle: "Sedan",
     fare: "₦44,500",
     status: "Confirmed",
@@ -67,6 +67,30 @@ export const trips: Trip[] = [
     status: "Completed",
   },
 ];
+
+// shortcut: two illustrative bookings only; replace with booking data when the API is available.
+export const tripDetails = {
+  "TR-1001": {
+    type: "pickup", phrase: ["HARMATTAN", "EMBER", "CROSS", "TITAN"],
+    origin: "MMIA International Terminal", destination: "1415 Adetokunbo Ademola Street, Maryland",
+    flightDescription: "Emirates", flightRoute: "From Dubai (DXB) · scheduled 14:05", pickupTime: "14:05",
+    traveller: "Womo Justin · +234 802 555 0147", party: "2 passengers · 2 large · 1 cabin bags",
+    vehicle: "SUV", extras: "Meet & greet · Extra stop", points: 560,
+  },
+  "TR-1002": {
+    type: "dropoff", phrase: ["TOPAZ", "WILLOW", "BAT", "COIN"],
+    origin: "1415 Adetokunbo Ademola Street, Victoria Island", destination: "MMIA International Terminal",
+    flightDescription: "Enugu Air", flightRoute: "To Enugu · scheduled 15:20", pickupTime: "11:10",
+    traveller: "Adaeze Okafor · +234 802 555 0147", party: "1 passenger · 1 large · 1 cabin bag",
+    vehicle: "Sedan · Toyota Camry, Lexus ES or similar", extras: "—", points: 445,
+  },
+} as const;
+
+export function getTripDetails(reference: string) {
+  if (!Object.hasOwn(tripDetails, reference)) return undefined;
+  const trip = trips.find((item) => item.reference === reference);
+  return trip ? { trip, details: tripDetails[reference as keyof typeof tripDetails] } : undefined;
+}
 
 export function filterTrips(items: Trip[], category: TripCategory, query: string) {
   const search = query.trim().toLocaleLowerCase();

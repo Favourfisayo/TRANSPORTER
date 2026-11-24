@@ -8,10 +8,12 @@ import { Input } from "@THE-TRANSPORTER/ui/components/base/input/input";
 import { SegmentedControl, SegmentedControlItem } from "@THE-TRANSPORTER/ui/components/base/segmented-control/segmented-control";
 import { DirectionProvider } from "@THE-TRANSPORTER/ui/components/foundations/direction/direction";
 import { FigmaIcon } from "@/components/figma-icon";
+import Link from "next/link";
 import { AccountCard } from "./account-card";
 import { formSchemas, submitDemoForm } from "@/lib/form-validation";
 
 const initialProfile = { name: "Womo Justin", email: "womojustinnnn@gmail.com", phone: "+234 802 555 0147" };
+const businessProfile = { name: "Tunde Adetope", email: "tundeadetope@koraenergy.ng", phone: "+234 809 555 0190" };
 const fieldClass = "h-12 rounded-xl border border-border-button-default bg-account-select-surface px-3.5";
 const themes = [
   { id: "light", label: "Light", icon: "account-light" },
@@ -20,9 +22,10 @@ const themes = [
 ] as const;
 const subscribe = () => () => {};
 
-export function ProfileCard() {
-  const [profile, setProfile] = useState(initialProfile);
-  const changed = Object.keys(initialProfile).some((key) => profile[key as keyof typeof profile] !== initialProfile[key as keyof typeof profile]);
+export function ProfileCard({ business = false }: { business?: boolean }) {
+  const initial = business ? businessProfile : initialProfile;
+  const [profile, setProfile] = useState(initial);
+  const changed = Object.keys(initial).some((key) => profile[key as keyof typeof profile] !== initial[key as keyof typeof profile]);
   return (
     <AccountCard title="Profile">
       <form className="mt-5 grid gap-4" onSubmit={(event) => submitDemoForm(event, formSchemas.profile, "Saving profile changes is coming soon.")}>
@@ -37,15 +40,18 @@ export function ProfileCard() {
   );
 }
 
-export function AccountTypeCard() {
+export function AccountTypeCard({ business = false }: { business?: boolean }) {
   return (
-    <AccountCard title="Account type" action={<span className="bg-dashboard-icon-surface text-accent-600 text-caption-1-medium rounded-full px-2.5 py-1">Individual</span>}>
-      <div className="bg-account-select-surface mt-5 rounded-2xl p-4">
+    <AccountCard title="Account type" action={<span className="bg-dashboard-icon-surface text-accent-600 text-caption-1-medium rounded-full px-2.5 py-1">{business ? "Business" : "Individual"}</span>}>
+      {business ? <div className="bg-account-select-surface mt-5 flex items-center justify-between gap-3 rounded-2xl p-4">
+        <div className="min-w-0"><p className="text-dashboard-card-title">Kora Energy Ltd</p><p className="text-dashboard-detail text-text-secondary">4 people · 3 cost centres</p></div>
+        <Link href={{ pathname: "/dashboard/business" }} className="text-dashboard-label text-accent-600 inline-flex h-9 shrink-0 items-center rounded-full px-3 focus-visible:outline-2 focus-visible:outline-border-focus-ring">Manage</Link>
+      </div> : <div className="bg-account-select-surface mt-5 rounded-2xl p-4">
         <p className="text-dashboard-route text-landing-label">Book for colleagues, use cost centres.</p>
         <Button variant="ghost" onClick={() => toast.info("Business accounts are coming soon.")} className="bg-dashboard-icon-surface text-accent-600 mt-6 h-9 gap-2 rounded-full px-3.5 [&>span]:gap-2">
           <FigmaIcon name="account-business" className="size-4" /> Switch to business
         </Button>
-      </div>
+      </div>}
     </AccountCard>
   );
 }

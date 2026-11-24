@@ -31,6 +31,8 @@ Before every task, read the documentation in `docs/`, including its subdirectori
 
 For every UI or frontend engineering task, check the AI skills available in the workspace and environment, select the skills relevant to the work, and invoke and follow them. Do this every time.
 
+When implementing a Figma design, match its exact design tokens, typography (including font family and weight), spacing, colors, icon artwork, borders, and copy across all relevant states. Inspect the Figma source instead of approximating; preserve any explicit user-requested exceptions. State any aspects that could not be verified rather than claiming exact fidelity.
+
 Use BoardUI's shared notification and toast components for all application toasts and notifications. Import toast and Toaster from `@THE-TRANSPORTER/ui/components/base/toast/toast` rather than adding another toast library.
 
 Keep secrets out of Git; commit environment schemas and use ignored environment files or the deployment platform for values. Follow `apps/web/AGENTS.md` when working in the web app, including its instruction to consult the installed Next.js documentation.

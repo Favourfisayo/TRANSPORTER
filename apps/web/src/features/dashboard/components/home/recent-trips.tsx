@@ -82,7 +82,7 @@ export function RecentTrips() {
               <span className="text-text-secondary">
                 <span className="font-mono">{flight}</span> · {vehicle}
               </span>
-              <span className="text-dashboard-label font-mono">{fare}</span>
+              <span className="text-dashboard-label font-mono"><span className="font-sans text-[0.9em]">₦</span>{fare.slice(1)}</span>
             </div>
           </article>
         ))}

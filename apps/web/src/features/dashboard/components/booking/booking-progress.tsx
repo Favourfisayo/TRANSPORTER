@@ -11,17 +11,17 @@ const spring = {
   mass: 0.8,
 } as const;
 
-export function BookingProgress({ current }: { current: number }) {
+export function BookingProgress({ current, labels = steps, timestamps, ariaLabel = "Booking progress" }: { current: number; labels?: string[]; timestamps?: string[]; ariaLabel?: string }) {
   const reducedMotion = useReducedMotion();
   return (
-    <nav aria-label="Booking progress" className="max-w-114.5">
+    <nav aria-label={ariaLabel} className={cx("max-w-114.5", timestamps && "pb-10")}>
       <ol className="flex w-full items-center">
-        {steps.map((label, index) => (
+        {labels.map((label, index) => (
           <li
             key={label}
             className={cx(
-              "flex items-center",
-              index < steps.length - 1 && "flex-1",
+              "relative flex items-center",
+              index < labels.length - 1 && "flex-1",
             )}
           >
             <span
@@ -44,10 +44,10 @@ export function BookingProgress({ current }: { current: number }) {
               )}
               <span className="relative">
                 {index + 1}
-                <span className="sr-only">: {label}</span>
+                <span className="sr-only">: {label}{timestamps?.[index] ? `, ${timestamps[index]}` : ""}</span>
               </span>
             </span>
-            {index < steps.length - 1 && (
+            {index < labels.length - 1 && (
               <span
                 aria-hidden="true"
                 className="bg-booking-progress-line relative h-0.5 min-w-2 flex-1 overflow-hidden"
@@ -60,6 +60,7 @@ export function BookingProgress({ current }: { current: number }) {
                 />
               </span>
             )}
+            {timestamps && <span aria-hidden="true" className={cx("absolute top-10 whitespace-nowrap text-start", index === labels.length - 1 ? "end-0" : "start-0")}><span className="text-caption-1-medium block max-sm:text-[11px]">{label}</span><span className="text-caption-1-regular text-text-secondary block">{timestamps[index] || "—"}</span></span>}
           </li>
         ))}
       </ol>

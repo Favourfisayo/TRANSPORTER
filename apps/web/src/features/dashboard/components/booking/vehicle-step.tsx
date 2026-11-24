@@ -21,12 +21,14 @@ export function VehicleStep({
   selected,
   onSelect,
   onContinue,
+  business = false,
 }: {
   party: Party;
   extras: BookingExtras;
   selected: Vehicle | null;
   onSelect: (vehicle: Vehicle) => void;
   onContinue: () => void;
+  business?: boolean;
 }) {
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -79,7 +81,7 @@ export function VehicleStep({
                           ₦
                         </span>
                         <NumberPopIn
-                          value={calculateDemoEstimate(extras, id)}
+                          value={calculateDemoEstimate(extras, id, business)}
                           label={`${vehicle.name} total`}
                           announce={false}
                         />

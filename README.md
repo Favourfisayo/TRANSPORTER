@@ -28,6 +28,17 @@ bun run dev
 
 Open [http://localhost:3001](http://localhost:3001) in your browser to see the web application.
 
+### Demo accounts
+
+On the login page, select the account type that matches the email below. Both accounts use the password `Demo1234!`.
+
+| Account type | Email |
+| --- | --- |
+| Individual | `individual@demo.thetransporter.co` |
+| Business | `business@demo.thetransporter.co` |
+
+These are demo-only credentials and do not provide real authentication. Both accounts open the dashboard; the company wallet is available from the business navigation.
+
 ## UI Customization
 
 React web apps in this stack share shadcn/ui primitives through `packages/ui`.

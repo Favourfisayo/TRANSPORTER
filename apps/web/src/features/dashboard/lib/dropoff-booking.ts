@@ -34,9 +34,13 @@ export function vehicleFits(vehicle: Vehicle, party: { passengers: number; large
   return z.object({ passengers: z.number().min(1).max(vehicles[vehicle].passengers), largeBags: z.number().min(0).max(vehicles[vehicle].largeBags) }).safeParse(party).success;
 }
 
-export function calculateDemoEstimate(extras: BookingExtras, vehicle: Vehicle = "sedan") {
+export function calculateDemoEstimate(extras: BookingExtras, vehicle: Vehicle = "sedan", business = false) {
   const seats = Number.isFinite(extras.childSeats) ? Math.max(0, Math.floor(extras.childSeats)) : 0;
-  return vehicles[vehicle].fare + demoPrices.airport + (extras.meetAndGreet ? demoPrices.meetAndGreet : 0) + seats * demoPrices.childSeat + (extras.extraStop ? demoPrices.extraStop : 0);
+  return vehicles[vehicle].fare + demoPrices.airport - (business ? businessDiscount(vehicle) : 0) + (extras.meetAndGreet ? demoPrices.meetAndGreet : 0) + seats * demoPrices.childSeat + (extras.extraStop ? demoPrices.extraStop : 0);
+}
+
+export function businessDiscount(vehicle: Vehicle) {
+  return Math.round((vehicles[vehicle].fare + demoPrices.airport) * 0.05);
 }
 
 export function rewardPoints(total: number) {

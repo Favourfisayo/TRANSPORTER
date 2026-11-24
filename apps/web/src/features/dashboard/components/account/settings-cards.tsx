@@ -20,7 +20,8 @@ const notifications = [
 ];
 const comingSoon = (feature: string) => toast.info(`${feature} is coming soon.`);
 
-export function SavedPlacesCard() {
+export function SavedPlacesCard({ business = false }: { business?: boolean }) {
+  const savedPlaces = business ? [{ name: "Head office", address: "7 Alfred Rewane Road, Ikoyi" }] : places;
   return (
     <AccountCard title="Saved places" className="rounded-[28px] [&>div:first-child]:items-center sm:[&>div:first-child]:items-baseline" action={
       <AddPlaceDialog trigger={<Button variant="ghost" aria-label="Add place" className="bg-dashboard-icon-surface text-accent-600 size-9 rounded-full p-0 sm:w-auto sm:px-3.5 [&>span]:gap-2">
@@ -29,8 +30,8 @@ export function SavedPlacesCard() {
     }>
       <p className="text-dashboard-route text-text-secondary mt-1">Pick them in one tap when you book.</p>
       <ul className="mt-5">
-        {places.map((place, index) => (
-          <li key={place.name} className={cx("flex items-center gap-3", index ? "pt-3" : "border-border-button-default border-b pb-3")}>
+        {savedPlaces.map((place, index) => (
+          <li key={place.name} className={cx("flex items-center gap-3", index > 0 && "pt-3", index < savedPlaces.length - 1 && "border-border-button-default border-b pb-3")}>
             <FigmaIcon name="account-place" className="text-text-secondary size-4" />
             <div className="min-w-0 flex-1">
               <p className="text-body-medium">{place.name}</p>

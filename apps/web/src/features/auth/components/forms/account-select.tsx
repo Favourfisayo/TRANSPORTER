@@ -4,11 +4,14 @@ import { Select, SelectItem } from "@THE-TRANSPORTER/ui/components/base/select/s
 import { cx } from "@THE-TRANSPORTER/ui/utils/cx";
 import { FigmaIcon } from "@/components/figma-icon";
 
-export function AccountSelect() {
+export function AccountSelect({ onChange }: { onChange?: (role: "individual" | "business") => void }) {
   return (
     <Select
       aria-label="Account type"
       defaultSelectedKey="individual"
+      onSelectionChange={(key) => {
+        if (key === "individual" || key === "business") onChange?.(key);
+      }}
       indicator={<FigmaIcon name="auth-chevron" className="size-4" />}
       className="w-full"
       triggerClassName="text-body-regular h-12 rounded-xl border-accent-500 bg-account-select-surface px-3.5 text-accent-600 shadow-none [&_svg]:text-accent-600"

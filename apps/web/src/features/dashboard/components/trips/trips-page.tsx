@@ -1,13 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Chip } from "@THE-TRANSPORTER/ui/components/base/badges/chip";
 import { SearchField } from "@THE-TRANSPORTER/ui/components/base/search-field/search-field";
 import { Tab, TabList, TabPanel, Tabs } from "@THE-TRANSPORTER/ui/components/base/tabs/tabs";
 import { DirectionProvider } from "@THE-TRANSPORTER/ui/components/foundations/direction/direction";
 import { cx } from "@THE-TRANSPORTER/ui/utils/cx";
 import { toast } from "@THE-TRANSPORTER/ui/components/base/toast/toast";
-import { filterTrips, tripCounts, trips, type Trip, type TripCategory } from "../../lib/trips";
+import { filterTrips, getTripDetails, tripCounts, trips, type Trip, type TripCategory } from "../../lib/trips";
 import { DashboardShell } from "../dashboard-shell";
 import { DashboardIcon, DashboardSearchIcon } from "../dashboard-icon";
 
@@ -30,12 +31,8 @@ function TripCard({ trip }: { trip: Trip }) {
       : trip.category === "past"
         ? "bg-dashboard-success-surface text-dashboard-success-text"
         : "bg-dashboard-icon-surface text-accent-600";
-  return (
-    <button
-      type="button"
-      onClick={() => toast.info("Trip details are coming soon.")}
-      className="bg-background-primary-default shadow-dashboard-card w-full rounded-3xl p-5 text-start transition-colors duration-150 hover:bg-background-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-border-focus-ring motion-reduce:transition-none"
-    >
+  const content = (
+    <>
       <div className="flex items-start justify-between gap-2">
         <div className="flex min-w-0 items-center gap-3">
           <span className="bg-dashboard-icon-surface text-brand-primary grid size-10 shrink-0 place-items-center rounded-2xl">
@@ -65,10 +62,12 @@ function TripCard({ trip }: { trip: Trip }) {
         <span className="text-text-secondary">
           <span className="font-mono">{trip.flight}</span> · {trip.vehicle}
         </span>
-        <span className="text-dashboard-label font-mono">{trip.fare}</span>
+        <span className="text-dashboard-label font-mono"><span className="font-sans text-[0.9em]">₦</span>{trip.fare.slice(1)}</span>
       </div>
-    </button>
+    </>
   );
+  const className = "bg-background-primary-default shadow-dashboard-card block w-full rounded-3xl p-5 text-start transition-colors duration-150 hover:bg-background-primary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-border-focus-ring motion-reduce:transition-none";
+  return getTripDetails(trip.reference) ? <Link href={{ pathname: `/dashboard/trips/${encodeURIComponent(trip.reference)}` }} className={className}>{content}</Link> : <button type="button" onClick={() => toast.info("Trip details are coming soon.")} className={className}>{content}</button>;
 }
 
 export function TripResults({ category, query }: { category: TripCategory; query: string }) {

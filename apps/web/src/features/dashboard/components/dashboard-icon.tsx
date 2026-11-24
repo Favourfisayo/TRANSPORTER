@@ -2,6 +2,9 @@ import { cx } from "@THE-TRANSPORTER/ui/utils/cx";
 
 const sizes = {
   "arrow-up": [15, 15], "arrow-white": [16, 16], avatar: [22, 22], book: [25, 22],
+  "business-home": [18, 18], "business-trips": [18, 18], "business-wallet": [18, 18],
+  "business-rewards": [18, 18], "business-company": [18, 18], "business-account": [18, 18],
+  "business-avatar": [22, 22], "business-logout": [18, 18],
   calendar: [16, 16], "day-ride": [18, 18], dropoff: [18, 18], "dropoff-white": [16, 16],
   empty: [24, 24], logout: [18, 18], "mobile-account": [22, 22], "mobile-add": [24, 24],
   "mobile-home": [22, 22], "mobile-trips": [22, 22], "mobile-wallet": [22, 22],

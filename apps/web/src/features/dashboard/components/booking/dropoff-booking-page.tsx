@@ -13,6 +13,7 @@ import { cx } from "@THE-TRANSPORTER/ui/utils/cx";
 import { toast } from "@THE-TRANSPORTER/ui/components/base/toast/toast";
 import { FigmaIcon } from "@/components/figma-icon";
 import { DashboardShell } from "../dashboard-shell";
+import { useBusinessDemo } from "../../lib/demo-role";
 import { BookingProgress } from "./booking-progress";
 import { FlightStep } from "./flight-step";
 import { TravellersStep, type Party } from "./travellers-step";
@@ -50,6 +51,8 @@ function LocationIcon({ className }: { className?: string }) {
 
 export function BookingPage({ tripType }: { tripType: "pickup" | "dropoff" }) {
   const isPickup = tripType === "pickup";
+  const business = useBusinessDemo();
+  const [paymentMethod, setPaymentMethod] = useState<"invoice" | "now">("invoice");
   const [area, setArea] = useState("");
   const [address, setAddress] = useState("");
   const [landmark, setLandmark] = useState("");
@@ -78,7 +81,7 @@ export function BookingPage({ tripType }: { tripType: "pickup" | "dropoff" }) {
   const selectedVehicle = vehicleFits(vehicle, party) ? vehicle : null;
   const pickupTime = getDemoPickupTime(flightDetails.date, flightDetails.time);
   const total = selectedVehicle
-    ? calculateDemoEstimate(extras, selectedVehicle)
+    ? calculateDemoEstimate(extras, selectedVehicle, business)
     : null;
 
   function reset() {
@@ -94,6 +97,7 @@ export function BookingPage({ tripType }: { tripType: "pickup" | "dropoff" }) {
     setParty({ passengers: 1, largeBags: 0, cabinBags: 0 });
     setExtras({ meetAndGreet: false, childSeats: 0, extraStop: false });
     setVehicle("suv");
+    setPaymentMethod("invoice");
   }
 
   function continueToFlight(event: FormEvent<HTMLFormElement>) {
@@ -110,7 +114,7 @@ export function BookingPage({ tripType }: { tripType: "pickup" | "dropoff" }) {
             <div className="flex min-w-0 items-center gap-2 sm:gap-3">
               {step === 0 ? (
                 <Link
-                  href={{ pathname: "/dashboard" }}
+                  href={{ pathname: business ? "/dashboard/wallet" : "/dashboard" }}
                   aria-label="Back to dashboard"
                   className="text-landing-label grid size-8 shrink-0 place-items-center rounded-full focus-visible:outline-2 focus-visible:outline-border-focus-ring"
                 >
@@ -243,6 +247,7 @@ export function BookingPage({ tripType }: { tripType: "pickup" | "dropoff" }) {
                 extras={extras}
                 onExtrasChange={setExtras}
                 onContinue={() => setStep(3)}
+                business={business}
               />
               {step === 3 && (
                 <VehicleStep
@@ -251,6 +256,7 @@ export function BookingPage({ tripType }: { tripType: "pickup" | "dropoff" }) {
                   selected={selectedVehicle}
                   onSelect={setVehicle}
                   onContinue={() => setStep(4)}
+                  business={business}
                 />
               )}
               {step === 4 && selectedVehicle && (
@@ -266,6 +272,9 @@ export function BookingPage({ tripType }: { tripType: "pickup" | "dropoff" }) {
                   extras={extras}
                   onEditFlight={() => setStep(1)}
                   onChangeVehicle={() => setStep(3)}
+                  business={business}
+                  paymentMethod={paymentMethod}
+                  onPaymentMethodChange={setPaymentMethod}
                 />
               )}
             </div>
@@ -320,22 +329,24 @@ export function BookingPage({ tripType }: { tripType: "pickup" | "dropoff" }) {
               </dl>
               {step >= 3 && selectedVehicle && total !== null && (
                 <div className="border-separator-border mt-5 border-t pt-4">
-                  <PriceBreakdown vehicle={selectedVehicle} extras={extras} />
+                  <PriceBreakdown vehicle={selectedVehicle} extras={extras} business={business} />
                 </div>
               )}
               {step === 4 && total !== null ? (
                 <div className="mt-5">
+                  <div className={cx(business && "bg-hero-overlay rounded-[21px] p-1.5")}>
+                  {business && <div className="text-brand-on flex items-center justify-between gap-3 px-3.5 py-2.5"><span className="text-dashboard-detail opacity-70">Total</span><span className="text-dashboard-section-title font-(family-name:--font-geist-mono)"><span className="font-sans text-[0.9em]">₦</span>{total.toLocaleString("en-NG")}</span></div>}
                   <Button
                     type="button"
-                    aria-label={`Pay ₦${total.toLocaleString("en-NG")}`}
+                    aria-label={business && paymentMethod === "invoice" ? "Confirm · bill company" : `Pay ₦${total.toLocaleString("en-NG")}`}
                     onClick={() =>
                       toast.info(
-                        "Payment is not connected yet. No booking has been made.",
+                        business && paymentMethod === "invoice" ? "Company invoicing is not connected yet. No booking has been made." : "Payment is not connected yet. No booking has been made.",
                       )
                     }
                     className="bg-brand-primary text-brand-on h-14 w-full rounded-[17px] text-[16px] leading-6 font-medium"
                   >
-                    <span className="inline-flex items-baseline gap-1">
+                    {business && paymentMethod === "invoice" ? "Confirm · bill company" : <span className="inline-flex items-baseline gap-1">
                       <span>Pay</span>
                       <span
                         aria-hidden="true"
@@ -348,8 +359,9 @@ export function BookingPage({ tripType }: { tripType: "pickup" | "dropoff" }) {
                           announce={false}
                         />
                       </span>
-                    </span>
+                    </span>}
                   </Button>
+                  </div>
                   <p className="text-caption-1-regular text-text-secondary mt-4 text-center">
                     You’ll earn {rewardPoints(total).toLocaleString("en-NG")}{" "}
                     points on this trip.
@@ -376,7 +388,7 @@ export function BookingPage({ tripType }: { tripType: "pickup" | "dropoff" }) {
                             value={
                               step === 3 && total !== null
                                 ? total
-                                : calculateDemoEstimate(extras)
+                                : calculateDemoEstimate(extras, "sedan", business)
                             }
                             label={step === 3 ? "Total" : "Estimate"}
                           />

@@ -4,6 +4,9 @@ import { useState, type FormEvent, type ReactNode } from "react";
 import { Input } from "@THE-TRANSPORTER/ui/components/base/input/input";
 import { Chip } from "@THE-TRANSPORTER/ui/components/base/badges/chip";
 import { NumberField } from "@THE-TRANSPORTER/ui/components/base/number-field/number-field";
+import { RadioGroup } from "@THE-TRANSPORTER/ui/components/base/radio/radio";
+import { RadioCard } from "@THE-TRANSPORTER/ui/components/base/radio/radio-card";
+import { Select, SelectItem } from "@THE-TRANSPORTER/ui/components/base/select/select";
 import { Switch } from "@THE-TRANSPORTER/ui/components/base/switch/switch";
 import { Textarea } from "@THE-TRANSPORTER/ui/components/base/textarea/textarea";
 import { FigmaIcon } from "@/components/figma-icon";
@@ -21,7 +24,7 @@ export type Party = {
 };
 
 const card =
-  "bg-background-primary-default shadow-dashboard-card rounded-[28px] p-6";
+  "bg-background-primary-default shadow-dashboard-card rounded-[28px] p-4 sm:p-6";
 const field =
   "h-12 rounded-xl border border-border-button-default bg-account-select-surface px-3.5 shadow-none";
 const switchClass =
@@ -83,6 +86,7 @@ export function TravellersStep({
   onContinue,
   name,
   onNameChange,
+  business = false,
 }: {
   hidden: boolean;
   party: Party;
@@ -92,13 +96,18 @@ export function TravellersStep({
   onContinue: () => void;
   name: string;
   onNameChange: (name: string) => void;
+  business?: boolean;
 }) {
   const [phone, setPhone] = useState("");
   const [note, setNote] = useState("");
   const [attempted, setAttempted] = useState(false);
+  const [teamMember, setTeamMember] = useState("");
+  const [costCentre, setCostCentre] = useState("executive");
+  const [reference, setReference] = useState("");
   const errors = validateTraveller(name, phone);
   const sedanFits = vehicleFits("sedan", party);
   const suvFits = vehicleFits("suv", party);
+  const busFits = vehicleFits("bus", party);
 
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -119,8 +128,24 @@ export function TravellersStep({
           Who’s travelling?
         </h2>
         <p className="text-dashboard-route text-text-secondary mt-1">
-          The driver contacts this person on the day.
+          {business ? "Book for anyone on the team. They get their own ride phrase by SMS." : "The driver contacts this person on the day."}
         </p>
+        {business && <RadioGroup aria-label="Choose a traveller" value={teamMember} onChange={(value) => {
+          setTeamMember(value);
+          onNameChange(value === "Someone else" ? "" : value);
+          setPhone("");
+        }} className="mt-5 grid grid-cols-1 gap-2 sm:grid-cols-2">
+          {[
+            ["Tunde Adetope", "You · account admin"],
+            ["Chiamaka Eze", "chiamaka@koraenergy.ng"],
+            ["Ifeanyi Obi", "ifeanyi@koraenergy.ng"],
+            ["Zainab Musa", "zainab@koraenergy.ng"],
+            ["Someone else", "A guest or new team member"],
+          ].map(([member, description]) => <RadioCard key={member} value={member} className="bg-account-select-surface data-[selected]:bg-dashboard-icon-surface flex min-w-0 justify-start gap-3 rounded-2xl border-0 p-3">
+            <FigmaIcon name="business-traveller" className="text-text-secondary size-5.5" />
+            <span className="flex min-w-0 flex-col"><span className="text-dashboard-route text-text-primary font-medium">{member}</span><span className="text-trip-detail-caption text-text-secondary break-all">{description}</span></span>
+          </RadioCard>)}
+        </RadioGroup>}
         <div className="mt-5 grid gap-4 sm:grid-cols-2">
           <Input
             label="Lead traveller"
@@ -152,6 +177,12 @@ export function TravellersStep({
             inputClassName="text-dashboard-body"
           />
         </div>
+        {business && <div className="mt-4 grid gap-4 sm:grid-cols-2">
+          <Select label="Cost centre" selectedKey={costCentre} onSelectionChange={(key) => { if (key) setCostCentre(String(key)); }} className="w-full" triggerClassName={field} indicator={<FigmaIcon name="business-cost-chevron" className="text-text-secondary size-4" />}>
+            <SelectItem id="executive" textValue="Executive office">Executive office</SelectItem>
+          </Select>
+          <Input label="PO or reference · optional" placeholder="e.g. PO-2291" value={reference} onChange={setReference} fieldClassName={field} inputClassName="text-dashboard-body" />
+        </div>}
       </section>
       <section className={card}>
         <h2 className="text-dashboard-section-title font-landing tracking-[-0.17px]">
@@ -206,9 +237,10 @@ export function TravellersStep({
               SUV fits
             </Chip>
           )}
-          {!sedanFits && !suvFits && (
+          {business && busFits && <Chip variant="caption" className="bg-booking-fit-surface text-booking-fit-text h-7 gap-1 rounded-full px-3 py-0 tracking-normal"><FigmaIcon name="booking-fit" className="size-3.5" />Bus fits</Chip>}
+          {!sedanFits && !suvFits && (!business || !busFits) && (
             <p className="text-dashboard-detail text-text-secondary">
-              Neither sedan nor SUV fits your party.
+              {business ? "No vehicle fits your party." : "Neither sedan nor SUV fits your party."}
             </p>
           )}
         </div>
@@ -218,7 +250,7 @@ export function TravellersStep({
           Extras
         </h2>
         <div className="mt-5 space-y-5">
-          <div className="flex items-center justify-between gap-3">
+          <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="min-w-0">
               <p id="meet-greet-label" className="text-booking-option">
                 Meet &amp; greet in arrivals
@@ -228,7 +260,7 @@ export function TravellersStep({
                 trolleys.
               </p>
             </div>
-            <div className="flex shrink-0 items-center gap-3">
+            <div className="ms-auto flex shrink-0 items-center gap-3">
               <span className="text-dashboard-detail text-text-secondary font-[family-name:var(--font-geist-mono)]">
                 +<span className="font-sans text-[0.9em]">₦</span>{demoPrices.meetAndGreet.toLocaleString("en-NG")}
               </span>
@@ -256,7 +288,7 @@ export function TravellersStep({
             }
             icon
           />
-          <div className="flex items-center justify-between gap-3">
+          <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="min-w-0">
               <p id="extra-stop-label" className="text-booking-option">
                 An extra stop on the way
@@ -265,7 +297,7 @@ export function TravellersStep({
                 Drop someone off or collect keys — up to 15 minutes.
               </p>
             </div>
-            <div className="flex shrink-0 items-center gap-3">
+            <div className="ms-auto flex shrink-0 items-center gap-3">
               <span className="text-dashboard-detail text-text-secondary font-[family-name:var(--font-geist-mono)]">
                 +<span className="font-sans text-[0.9em]">₦</span>{demoPrices.extraStop.toLocaleString("en-NG")}
               </span>

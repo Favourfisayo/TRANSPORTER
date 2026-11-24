@@ -1,5 +1,6 @@
 import {
   calculateDemoEstimate,
+  businessDiscount,
   demoPrices,
   vehicles,
   type BookingExtras,
@@ -11,12 +12,14 @@ export function PriceBreakdown({
   vehicle,
   extras,
   area,
+  business = false,
 }: {
   vehicle: Vehicle;
   extras: BookingExtras;
   area?: string;
+  business?: boolean;
 }) {
-  const total = calculateDemoEstimate(extras, vehicle);
+  const total = calculateDemoEstimate(extras, vehicle, business);
   return (
     <dl className="text-dashboard-route grid gap-2.5 [&_dd]:font-[family-name:var(--font-geist-mono)]">
       <div className="flex justify-between gap-3">
@@ -74,6 +77,7 @@ export function PriceBreakdown({
           </dd>
         </div>
       )}
+      {business && <div className="text-dashboard-success-text flex justify-between gap-3"><dt>Business rate (5%)</dt><dd>−<span className="font-sans text-[0.9em]">₦</span>{businessDiscount(vehicle).toLocaleString("en-NG")}</dd></div>}
       <div className="border-separator-border flex justify-between gap-3 border-t border-dashed pt-3">
         <dt className="text-body-semibold">Total</dt>
         <dd className="text-[18px] leading-7 font-semibold">
