@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { useInView } from "motion/react";
 import Link from "next/link";
+import Image from "next/image";
 import { cx } from "@THE-TRANSPORTER/ui/utils/cx";
 
 import { ComingSoonButton } from "./coming-soon-button";
@@ -26,9 +27,10 @@ export function Footer() {
           <Link
             href="/"
             aria-label="The Transporter home"
-            className="font-brand text-[17px] font-semibold tracking-[-0.025em] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-primary"
+            className="font-brand inline-flex items-center gap-2 text-[17px] font-semibold tracking-[-0.025em] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brand-primary"
           >
-            TheTransporter<span className="text-brand-primary font-medium">.co</span>
+            <Image src="/assets/mainlogo.png" width={40} height={37} alt="" className="shrink-0" />
+            <span>TheTransporter<span className="text-brand-primary font-medium">.co</span></span>
           </Link>
           <address className="text-body-regular mt-8 grid gap-2 not-italic">
             <span>+234 700 000 0000</span>

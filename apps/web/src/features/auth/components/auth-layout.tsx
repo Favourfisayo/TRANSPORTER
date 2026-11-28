@@ -10,8 +10,7 @@ export function AuthLayout({ title, description, backHref = "/login", children }
       <div className="flex min-h-screen flex-col px-5 py-5 sm:px-10">
         <header className="flex items-center justify-between">
           <Link href="/" aria-label="The Transporter home" className="flex items-center gap-2.5 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-500">
-            <Image src="/assets/logo-mark.svg" width={32} height={32} alt="" />
-            <span className="text-headline-semibold">TheTransporter<span className="text-brand-primary">.co</span></span>
+            <Image src="/assets/mainlogo.png" width={40} height={37} alt="" className="shrink-0" />
           </Link>
           <ModeToggle icon={<FigmaIcon name="auth-theme" className="size-5" />} className="border-transparent bg-transparent text-text-primary backdrop-blur-none hover:border-border-button-default hover:bg-background-primary-default [&_svg]:text-text-primary" />
         </header>

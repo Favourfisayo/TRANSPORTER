@@ -56,17 +56,14 @@ function unavailable(label: string) {
   toast.info(`${label} is coming soon.`);
 }
 
-function Brand({ compact = false }: { compact?: boolean }) {
+function Brand() {
   return (
     <Link
       href="/"
       aria-label="The Transporter home"
       className="flex min-w-0 items-center gap-2.5 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-500"
     >
-      <Image src="/assets/logo-mark.svg" width={32} height={32} alt="" />
-      <span className={cx("text-body-semibold whitespace-nowrap", compact && "sr-only")}>
-        TheTransporter<span className="text-brand-primary">.co</span>
-      </span>
+      <Image src="/assets/mainlogo.png" width={40} height={37} alt="" className="shrink-0" />
     </Link>
   );
 }
@@ -77,7 +74,7 @@ export function DashboardShell({ active, children }: { active: Destination; chil
   const business = useBusinessDemo();
   const header = (
     <div className={cx("flex items-center justify-between gap-2", collapsed && "flex-col")}>
-      <Brand compact={collapsed} />
+      <Brand />
       <ModeToggle className={themeClass} icon={<DashboardIcon name="theme" />} />
     </div>
   );
